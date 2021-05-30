@@ -6,7 +6,7 @@ from typing import Any
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import TIME_MILLISECONDS
-from homeassistant.helpers.typing import HomeAssistantType
+from homeassistant.core import HomeAssistant
 
 from . import MinecraftServer, MinecraftServerEntity
 from .const import (
@@ -30,7 +30,7 @@ from .const import (
 
 
 async def async_setup_entry(
-    hass: HomeAssistantType, config_entry: ConfigEntry, async_add_entities
+    hass: HomeAssistant, config_entry: ConfigEntry, async_add_entities
 ) -> None:
     """Set up the Minecraft Server sensor platform."""
     server = hass.data[DOMAIN][config_entry.unique_id]
@@ -147,9 +147,8 @@ class MinecraftServerPlayersOnlineSensor(MinecraftServerSensorEntity):
         extra_state_attributes = None
         players_list = self._server.players_list
 
-        if players_list is not None:
-            if len(players_list) != 0:
-                extra_state_attributes = {ATTR_PLAYERS_LIST: self._server.players_list}
+        if players_list is not None and len(players_list) != 0:
+            extra_state_attributes = {ATTR_PLAYERS_LIST: self._server.players_list}
 
         self._extra_state_attributes = extra_state_attributes
 

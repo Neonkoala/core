@@ -1,4 +1,5 @@
-"""Shared constants for automation and script tracing and debugging."""
+"""Shared constants for script and automation tracing and debugging."""
 
+CONF_STORED_TRACES = "stored_traces"
 DATA_TRACE = "trace"
-STORED_TRACES = 5  # Stored traces per automation
+DEFAULT_STORED_TRACES = 5  # Stored traces per script or automation
